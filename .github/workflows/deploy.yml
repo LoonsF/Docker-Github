@@ -9,6 +9,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - run: docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASS }}
-      - run: docker build -t ${{ secrets.DOCKER_USER }}/static-site .
-      - run: docker push ${{ secrets.DOCKER_USER }}/static-site
+      
+      - name: Login to DockerHub
+        run: |
+          echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+      
+      - name: Build Docker image
+        run: |
+          docker build -t loonsg/static-site:latest .
+          docker tag loonsg/static-site:latest loonsg/static-site:${{ github.sha }}
+      
+      - name: Push to DockerHub
+        run: |
+          docker push loonsg/static-site:latest
+          docker push loonsg/static-site:${{ github.sha }}
