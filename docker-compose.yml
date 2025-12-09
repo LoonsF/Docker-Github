@@ -1,6 +1,6 @@
 version: '3'
 services:
   app:
-    image: user/static-site
+    build: .
     ports:
-      - "80:80"
+      - "8080:80"
