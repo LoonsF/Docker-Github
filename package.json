@@ -1,0 +1,9 @@
+{
+  "name": "static-site",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "docker-compose up",
+    "build": "docker build -t static-site .",
+    "dev": "docker-compose up --build"
+  }
+}

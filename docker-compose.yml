@@ -1,0 +1,6 @@
+version: '3'
+services:
+  app:
+    image: user/static-site
+    ports:
+      - "80:80"
